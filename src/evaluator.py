@@ -7,13 +7,15 @@ Evaluasi performa model MNB dan perhitungan Top-N fitur untuk explainability.
 import numpy as np
 import pandas as pd
 from sklearn.metrics import (
-    accuracy_score, precision_score,
-    recall_score, f1_score,
-    confusion_matrix, classification_report
+    accuracy_score,
+    classification_report,
+    confusion_matrix,
+    f1_score,
+    precision_score,
+    recall_score,
 )
 
-from src.preprocessor import preprocess_pipeline, tokens_to_string
-from src.feature_extractor import transform_texts, preprocess_corpus
+from src.feature_extractor import preprocess_corpus, transform_texts
 
 
 def evaluate_model(
@@ -108,7 +110,7 @@ def evaluate_both_models(
         sentimen : dict  — Hasil evaluate_model untuk sentimen
         kategori : dict  — Hasil evaluate_model untuk kategori
     """
-    from src.classifier import LABEL_SENTIMEN, LABEL_KATEGORI
+    from src.classifier import LABEL_KATEGORI, LABEL_SENTIMEN
 
     test_corpus = preprocess_corpus(test_df['ulasan'].tolist())
     X_test = transform_texts(test_corpus, vectorizer)
@@ -130,14 +132,19 @@ def get_top_features(
     model,
     vectorizer,
     class_name: str,
-    input_tokens: list = None,
+    input_tokens: list | None = None,
     top_n: int = 5,
 ) -> list:
     """
-    Ambil Top-N kata paling berpengaruh untuk kelas tertentu.
+    Ambil Top-N kata paling berpengaruh untuk kelas tertentu berdasarkan log-odds.
 
-    Jika input_tokens diberikan, filter hanya kata yang ada dalam input
-    (kontekstual). Jika tidak, tampilkan top-N global dari vocabulary.
+    Log-odds membandingkan log-probabilitas fitur pada kelas target dengan rata-rata
+    log-probabilitas pada kelas lainnya:
+        log_odds = log P(w|C_k) - log mean_{j != k} P(w|C_j)
+
+    Jika input_tokens diberikan, hanya filter token (unigram & bigram) dari input
+    yang ada di vocabulary. Jika tidak ada yang cocok, kembalikan list kosong []
+    (tanpa fallback global yang menyesatkan).
 
     Parameters
     ----------
@@ -149,41 +156,46 @@ def get_top_features(
 
     Returns
     -------
-    list[tuple]  — [(kata, log_prob), ...] diurutkan dari tertinggi
+    list[tuple]  — [(kata, log_odds), ...] diurutkan dari skor tertinggi
     """
-    classes     = list(model.classes_)
-    feat_names  = list(vectorizer.get_feature_names_out())
-    log_probs   = model.feature_log_prob_
+    classes    = list(model.classes_)
+    feat_names = list(vectorizer.get_feature_names_out())
+    flp        = model.feature_log_prob_  # shape: (n_classes, n_features)
 
     if class_name not in classes:
         return []
 
-    class_idx = classes.index(class_name)
-    class_log_prob = log_probs[class_idx]  # shape: (n_features,)
+    ci = classes.index(class_name)
+    oth = [i for i in range(len(classes)) if i != ci]
 
-    if input_tokens:
-        # Filter token (unigram dan bigram) dari input yang ada di vocabulary
+    if oth:
+        # log-sum-exp over other classes minus log(number of other classes)
+        bg = np.logaddexp.reduce(flp[oth], axis=0) - np.log(len(oth))
+        scores = flp[ci] - bg
+    else:
+        scores = flp[ci]
+
+    if input_tokens is not None:
         vocab = vectorizer.vocabulary_
         idx_list = []
         for token in input_tokens:
             if token in vocab:
                 idx_list.append(vocab[token])
         for i in range(len(input_tokens) - 1):
-            bg = f"{input_tokens[i]} {input_tokens[i+1]}"
-            if bg in vocab:
-                idx_list.append(vocab[bg])
+            bg_gram = f"{input_tokens[i]} {input_tokens[i+1]}"
+            if bg_gram in vocab:
+                idx_list.append(vocab[bg_gram])
 
-        if not idx_list:
-            # Fallback: global top-N jika tidak ada token yang dikenal
-            idx_sorted = np.argsort(class_log_prob)[::-1][:top_n]
-        else:
-            # Urutkan idx yang ada di input berdasarkan log-prob tertinggi
-            idx_sorted = sorted(list(set(idx_list)), key=lambda i: class_log_prob[i], reverse=True)[:top_n]
+        unique_idx = list(set(idx_list))
+        if not unique_idx:
+            # Tidak ada token yang cocok di vocabulary -> jangan fallback ke global
+            return []
+
+        idx_sorted = sorted(unique_idx, key=lambda i: scores[i], reverse=True)[:top_n]
     else:
-        idx_sorted = np.argsort(class_log_prob)[::-1][:top_n]
+        idx_sorted = np.argsort(scores)[::-1][:top_n]
 
-    result = [(feat_names[i], float(class_log_prob[i])) for i in idx_sorted]
-    return result
+    return [(feat_names[i], round(float(scores[i]), 4)) for i in idx_sorted]
 
 
 def get_misclassified(y_true: list, y_pred: list, texts: list) -> pd.DataFrame:

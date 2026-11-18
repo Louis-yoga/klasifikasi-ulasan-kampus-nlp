@@ -1,16 +1,16 @@
 """
 feature_extractor.py
 --------------------
-Wrapper Feature Extraction (Bag-of-Words & N-Gram TF-IDF) untuk Sistem Klasifikasi Ulasan Kampus.
-Satu vectorizer digunakan bersama oleh kedua model MNB (Sentimen & Kategori).
+Ekstraksi Fitur Teks (Sublinear TF-IDF N-Gram) untuk Sistem Klasifikasi Ulasan Kampus.
+Satu vectorizer digunakan bersama oleh model Sentimen dan Kategori.
 """
 
-import joblib
 from sklearn.feature_extraction.text import TfidfVectorizer
-from src.preprocessor import tokens_to_string, preprocess_pipeline
+
+from src.preprocessor import preprocess_pipeline, tokens_to_string
 
 
-def build_vocabulary(corpus: list) -> TfidfVectorizer:
+def build_vocabulary(corpus: list, ngram_range: tuple = (1, 2)) -> TfidfVectorizer:
     """
     Fit TfidfVectorizer pada training corpus.
     Menggunakan unigram + bigram dan sublinear_tf=True untuk meningkatkan
@@ -18,7 +18,8 @@ def build_vocabulary(corpus: list) -> TfidfVectorizer:
 
     Parameters
     ----------
-    corpus : list[str]  — Daftar teks ulasan (string token hasil preprocessing)
+    corpus      : list[str]  — Daftar teks ulasan (string token hasil preprocessing)
+    ngram_range : tuple      — Range n-gram (default: (1, 2))
 
     Returns
     -------
@@ -28,11 +29,15 @@ def build_vocabulary(corpus: list) -> TfidfVectorizer:
         analyzer='word',
         min_df=1,           # Seluruh fitur kosakata disertakan
         max_df=0.95,        # Abaikan kata yang terlalu umum di >95% dokumen
-        ngram_range=(1, 2), # Unigram + Bigram (menangkap frasa penting)
+        ngram_range=ngram_range, # Unigram + Bigram (menangkap frasa penting)
         sublinear_tf=True,  # Reduksi dominasi frekuensi kata ekstrem (1 + log(tf))
     )
     vectorizer.fit(corpus)
     return vectorizer
+
+
+# Alias untuk fleksibilitas pemanggilan
+build_vectorizer = build_vocabulary
 
 
 def preprocess_corpus(texts: list) -> list:
@@ -55,7 +60,7 @@ def preprocess_corpus(texts: list) -> list:
     return result
 
 
-def transform_texts(texts: list, vectorizer):
+def transform_texts(texts: list, vectorizer: TfidfVectorizer):
     """
     Transform daftar teks menjadi sparse matrix fitur.
 
@@ -71,7 +76,7 @@ def transform_texts(texts: list, vectorizer):
     return vectorizer.transform(texts)
 
 
-def transform_single(teks_token_str: str, vectorizer):
+def transform_single(teks_token_str: str, vectorizer: TfidfVectorizer):
     """
     Transform satu teks (token string) menjadi vektor fitur.
 
@@ -87,18 +92,8 @@ def transform_single(teks_token_str: str, vectorizer):
     return vectorizer.transform([teks_token_str])
 
 
-def get_feature_names(vectorizer) -> list:
+def get_feature_names(vectorizer: TfidfVectorizer) -> list:
     """
     Kembalikan daftar seluruh fitur dalam vocabulary.
     """
     return list(vectorizer.get_feature_names_out())
-
-
-def save_vectorizer(vectorizer, path: str) -> None:
-    """Simpan vectorizer ke file menggunakan joblib."""
-    joblib.dump(vectorizer, path)
-
-
-def load_vectorizer(path: str):
-    """Muat vectorizer dari file."""
-    return joblib.load(path)

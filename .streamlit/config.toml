@@ -1,0 +1,11 @@
+[server]
+maxUploadSize = 1
+enableXsrfProtection = true
+headless = true
+
+[browser]
+gatherUsageStats = false
+
+[client]
+toolbarMode = "viewer"
+showErrorDetails = "none"

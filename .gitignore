@@ -33,8 +33,8 @@ ENV/
 env.bak/
 venv.bak/
 
-# Streamlit
-.streamlit/
+# Streamlit secrets
+.streamlit/secrets.toml
 
 # OS generated files
 .DS_Store

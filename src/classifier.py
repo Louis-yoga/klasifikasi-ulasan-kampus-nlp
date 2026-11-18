@@ -1,63 +1,63 @@
 """
 classifier.py
 -------------
-Wrapper dua model Multinomial Naive Bayes independen:
-  - model_sentimen : Positif / Negatif
-  - model_kategori : Akademik / Fasilitas/WiFi / Perpustakaan / Sistem KRS
-
-Keduanya menggunakan vectorizer yang sama dari feature_extractor.py.
+Pengklasifikasi teks berbasis dua model Multinomial Naive Bayes independen:
+  - model_sentimen : Positif / Negatif / Netral
+  - model_kategori : Administrasi / Akademik / Fasilitas / Kemahasiswaan
 """
 
-import joblib
 import numpy as np
 import pandas as pd
-from sklearn.naive_bayes import MultinomialNB
 from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import MultinomialNB
 
-from src.preprocessor import preprocess_pipeline, tokens_to_string
+from src.config import MAX_CHARS
 from src.feature_extractor import (
-    build_vocabulary, preprocess_corpus,
-    transform_texts, transform_single,
-    save_vectorizer, load_vectorizer
+    build_vocabulary,
+    preprocess_corpus,
+    transform_single,
+    transform_texts,
 )
+from src.preprocessor import preprocess_pipeline, tokens_to_string
 
-# ── Konstanta ────────────────────────────────────────────────────────────────
-LABEL_SENTIMEN  = ['Positif', 'Negatif', 'Netral']
-LABEL_KATEGORI  = ['Administrasi', 'Akademik', 'Fasilitas', 'Kemahasiswaan']
-LOW_CONF_THRESHOLD = 0.60  # (Q10) Flag jika confidence < 60%
+# ── Konstanta Label & Konfigurasi ────────────────────────────────────────────
+LABEL_SENTIMEN = ['Positif', 'Negatif', 'Netral']
+LABEL_KATEGORI = ['Administrasi', 'Akademik', 'Fasilitas', 'Kemahasiswaan']
+LOW_CONF_THRESHOLD = 0.60  # Flag jika confidence < 60%
 
 EMOJI_SENTIMEN = {
     'Positif': '😊 Positif',
     'Negatif': '😟 Negatif',
     'Netral' : '😐 Netral',
+    'Tidak dapat diklasifikasikan': '❓ Tidak Diketahui',
 }
 EMOJI_KATEGORI = {
     'Administrasi' : '📑 Administrasi',
     'Akademik'     : '🎓 Akademik',
     'Fasilitas'    : '🏢 Fasilitas',
     'Kemahasiswaan': '👥 Kemahasiswaan',
+    'Tidak dapat diklasifikasikan': '❓ Tidak Diketahui',
 }
 
 
-# ── Training ─────────────────────────────────────────────────────────────────
+# ── Persiapan Data & Pelatihan ───────────────────────────────────────────────
 
-def prepare_data(df: pd.DataFrame, random_state: int = 42):
+def prepare_data(df: pd.DataFrame, random_state: int = 42) -> tuple:
     """
-    Split dataset menjadi train dan test menggunakan stratified split
-    berdasarkan kombinasi sentimen × kategori.
+    Split dataset menjadi data latih dan data uji menggunakan stratified split
+    berdasarkan kombinasi sentimen × kategori (12 kombinasi kelas).
 
     Parameters
     ----------
-    df           : DataFrame  — Dataset lengkap dengan kolom ulasan/sentimen/kategori
+    df           : DataFrame
     random_state : int
 
     Returns
     -------
     train_df, test_df : DataFrame, DataFrame
     """
-    # Buat stratify key: gabungan sentimen + kategori (8 kelas kombinasi)
     df = df.copy()
-    df['stratify_key'] = df['sentimen'] + '_' + df['kategori']
+    df['stratify_key'] = df['sentimen'].astype(str) + '_' + df['kategori'].astype(str)
 
     train_df, test_df = train_test_split(
         df,
@@ -68,14 +68,15 @@ def prepare_data(df: pd.DataFrame, random_state: int = 42):
     return train_df.reset_index(drop=True), test_df.reset_index(drop=True)
 
 
-def train_all_models(train_df: pd.DataFrame, vectorizer):
+def train_all_models(train_df: pd.DataFrame, vectorizer, alpha: float = 0.2) -> tuple:
     """
-    Melatih dua model MNB independen pada training set yang sama.
+    Melatih dua model Multinomial Naive Bayes independen pada training set.
 
     Parameters
     ----------
-    train_df   : DataFrame  — Training set (sudah di-split)
-    vectorizer : CountVectorizer  — Sudah di-fit pada training corpus
+    train_df   : DataFrame
+    vectorizer : TfidfVectorizer (sudah di-fit pada train_df)
+    alpha      : float (smoothing parameter)
 
     Returns
     -------
@@ -84,19 +85,18 @@ def train_all_models(train_df: pd.DataFrame, vectorizer):
     train_corpus = preprocess_corpus(train_df['ulasan'].tolist())
     X_train = transform_texts(train_corpus, vectorizer)
 
-    model_sentimen = MultinomialNB(alpha=0.2)  # Smoothing teroptimasi
+    model_sentimen = MultinomialNB(alpha=alpha)
     model_sentimen.fit(X_train, train_df['sentimen'])
 
-    model_kategori = MultinomialNB(alpha=0.2)  # Smoothing teroptimasi
+    model_kategori = MultinomialNB(alpha=alpha)
     model_kategori.fit(X_train, train_df['kategori'])
 
     return model_sentimen, model_kategori
 
 
-def build_and_train(df: pd.DataFrame, random_state: int = 42):
+def build_and_train(df: pd.DataFrame, random_state: int = 42, alpha: float = 0.2) -> tuple:
     """
-    Pipeline lengkap: split → preprocess → fit vectorizer → train 2 model.
-    Digunakan oleh app.py pada saat startup pertama.
+    Pipeline lengkap pelatihan model dari dataset mentah.
 
     Returns
     -------
@@ -107,12 +107,12 @@ def build_and_train(df: pd.DataFrame, random_state: int = 42):
     train_corpus = preprocess_corpus(train_df['ulasan'].tolist())
     vectorizer = build_vocabulary(train_corpus)
 
-    model_sentimen, model_kategori = train_all_models(train_df, vectorizer)
+    model_sentimen, model_kategori = train_all_models(train_df, vectorizer, alpha=alpha)
 
     return train_df, test_df, vectorizer, model_sentimen, model_kategori
 
 
-# ── Prediksi ─────────────────────────────────────────────────────────────────
+# ── Inferensi / Prediksi ─────────────────────────────────────────────────────
 
 def predict_single(
     teks: str,
@@ -121,33 +121,46 @@ def predict_single(
     model_kategori: MultinomialNB,
 ) -> dict:
     """
-    Prediksi sentimen dan kategori untuk satu teks ulasan.
+    Prediksi sentimen dan kategori untuk satu teks ulasan secara aman.
 
     Parameters
     ----------
-    teks           : str  — Teks ulasan mentah
-    vectorizer     : CountVectorizer
+    teks           : str
+    vectorizer     : TfidfVectorizer
     model_sentimen : MultinomialNB
     model_kategori : MultinomialNB
 
     Returns
     -------
     dict:
-        prep_result      : dict   — Hasil preprocess_pipeline (untuk Panel 2)
-        sentimen         : str    — Kelas sentimen prediksi
-        conf_sentimen    : float  — Keyakinan sentimen (0–1)
-        kategori         : str    — Kelas kategori prediksi
-        conf_kategori    : float  — Keyakinan kategori (0–1)
-        proba_sentimen   : dict   — Probabilitas per kelas sentimen
-        proba_kategori   : dict   — Probabilitas per kelas kategori
-        low_confidence   : bool   — True jika salah satu < LOW_CONF_THRESHOLD
-        low_conf_message : str    — Pesan human oversight (jika low_confidence)
+        prep_result      : dict (hasil preprocessing dan masking PII)
+        sentimen         : str
+        conf_sentimen    : float
+        kategori         : str
+        conf_kategori    : float
+        proba_sentimen   : dict
+        proba_kategori   : dict
+        low_confidence   : bool
+        low_conf_message : str
     """
-    # Preprocessing
+    # Preprocessing & PII sanitization
     prep_result = preprocess_pipeline(teks)
-    token_str = tokens_to_string(prep_result['tokens'])
 
-    # Vectorize
+    # Tangani input kosong / tanpa token bermakna (FUN-04 / M-07)
+    if prep_result['jumlah_token'] == 0:
+        return {
+            "prep_result"     : prep_result,
+            "sentimen"        : "Tidak dapat diklasifikasikan",
+            "conf_sentimen"   : 0.0,
+            "kategori"        : "Tidak dapat diklasifikasikan",
+            "conf_kategori"   : 0.0,
+            "proba_sentimen"  : {k: 0.0 for k in model_sentimen.classes_},
+            "proba_kategori"  : {k: 0.0 for k in model_kategori.classes_},
+            "low_confidence"  : True,
+            "low_conf_message": "⚠️ Teks tidak mengandung kata bermakna yang dapat dianalisis model.",
+        }
+
+    token_str = tokens_to_string(prep_result['tokens'])
     X = transform_single(token_str, vectorizer)
 
     # Prediksi sentimen
@@ -164,7 +177,7 @@ def predict_single(
     pred_k      = kelas_k[np.argmax(proba_k_arr)]
     conf_k      = float(np.max(proba_k_arr))
 
-    # Low Confidence Flag (Q10)
+    # Low Confidence Flag
     low_conf = (conf_s < LOW_CONF_THRESHOLD) or (conf_k < LOW_CONF_THRESHOLD)
     low_conf_msg = (
         "⚠️ Keyakinan model rendah (< 60%). "
@@ -190,41 +203,45 @@ def predict_batch(
     vectorizer,
     model_sentimen: MultinomialNB,
     model_kategori: MultinomialNB,
-) -> pd.DataFrame:
+) -> tuple:
     """
-    Prediksi batch untuk DataFrame yang memiliki kolom 'ulasan'.
+    Prediksi batch untuk DataFrame.
+    Secara ketat memastikan:
+    1. Teks dipotong pada MAX_CHARS (SEC-01).
+    2. Kolom 'ulasan' pada hasil berisi TEKS TERSAMAR (masked PII), BUKAN teks mentah (SEC-02).
+    3. Mengembalikan (hasil_df, n_truncated).
+
+    Parameters
+    ----------
+    df_input : DataFrame (memiliki kolom 'ulasan')
 
     Returns
     -------
-    DataFrame dengan kolom tambahan: sentimen, conf_sentimen,
-                                     kategori, conf_kategori, low_confidence
+    tuple : (DataFrame hasil prediksi, int jumlah sel yang dipotong)
     """
     hasil_list = []
+    n_truncated = 0
+
     for idx, row in df_input.iterrows():
-        teks_ulasan = str(row['ulasan']) if pd.notna(row.get('ulasan')) else ""
-        res = predict_single(
-            teks_ulasan, vectorizer, model_sentimen, model_kategori
-        )
+        raw_text = str(row['ulasan']) if pd.notna(row.get('ulasan')) else ""
+        if len(raw_text) > MAX_CHARS:
+            teks_ulasan = raw_text[:MAX_CHARS]
+            n_truncated += 1
+        else:
+            teks_ulasan = raw_text
+
+        res = predict_single(teks_ulasan, vectorizer, model_sentimen, model_kategori)
         row_id = row['id'] if ('id' in row and pd.notna(row['id']) and str(row['id']).strip() != '') else (idx + 1)
+
+        # Simpan teks_masked_pii, BUKAN teks mentah (SEC-02)
         hasil_list.append({
             'id'            : row_id,
-            'ulasan'        : teks_ulasan,
+            'ulasan'        : res['prep_result']['teks_masked_pii'],
             'sentimen'      : res['sentimen'],
             'conf_sentimen' : f"{res['conf_sentimen']*100:.1f}%",
             'kategori'      : res['kategori'],
             'conf_kategori' : f"{res['conf_kategori']*100:.1f}%",
             'low_confidence': '⚠️ Ya' if res['low_confidence'] else '✅ Tidak',
         })
-    return pd.DataFrame(hasil_list)
 
-
-# ── Simpan / Muat Model ───────────────────────────────────────────────────────
-
-def save_model(model, path: str) -> None:
-    """Simpan model ke file menggunakan joblib."""
-    joblib.dump(model, path)
-
-
-def load_model(path: str):
-    """Muat model dari file."""
-    return joblib.load(path)
+    return pd.DataFrame(hasil_list), n_truncated

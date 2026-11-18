@@ -2,40 +2,64 @@
 preprocessor.py
 ---------------
 Pipeline preprocessing teks untuk Sistem Klasifikasi Ulasan Kampus.
-Langkah: PII Masking → Lowercase → Hapus Tanda Baca → Stopword Removal → Tokenisasi
+Langkah: Input Validation → PII Masking → Normalisasi & Lowercase → Cleaning → Stopword Removal → Tokenisasi → Negation Marking
 """
 
 import re
 
-# ── Daftar Stopword Ringan Bahasa Indonesia ─────────────────────────────────
-# "tidak" sengaja TIDAK dimasukkan karena mengandung informasi sentimen penting
+from src.config import MAX_CHARS
+
+
+class InputTooLong(ValueError):
+    """Exception jika teks ulasan melebihi batas panjang maksimum."""
+
+
+# ── Daftar Stopword Bahasa Indonesia ─────────────────────────────────────────
+# Catatan Keamanan & Semantik (MOD-03):
+# Kata-kata negasi, intensifier, dan kata domain kunci sengaja TIDAK dimasukkan
+# (misal: "tidak", "belum", "bukan", "sekali", "lebih", "sering", "waktu", "bisa", "hal")
 STOPWORDS = {
     "yang", "dan", "di", "ke", "dari", "untuk", "dengan", "ini", "itu",
     "atau", "juga", "pada", "sudah", "saya", "kami", "kita", "adalah",
-    "ada", "bisa", "akan", "lebih", "sekali", "nya", "pun", "lah",
+    "ada", "akan", "nya", "pun", "lah",
     "ya", "si", "para", "sang", "agar", "atas", "bagi", "bahwa",
-    "belum", "bila", "bukan", "demi", "dalam", "hal", "hingga",
-    "jika", "kalau", "karena", "lagi", "maka", "menjadi", "meski",
-    "oleh", "pun", "sama", "sebelum", "sebuah", "sedang", "sehingga",
-    "sering", "setelah", "sini", "suatu", "supaya", "telah", "tentang",
-    "tiap", "waktu", "walaupun", "seperti", "setiap", "antara"
+    "demi", "dalam", "hingga", "jika", "kalau", "karena", "lagi",
+    "maka", "menjadi", "meski", "oleh", "sama", "sebelum", "sebuah",
+    "sedang", "sehingga", "setelah", "sini", "suatu", "supaya",
+    "telah", "tentang", "tiap", "walaupun", "seperti", "setiap", "antara"
 }
 
-# ── Pola Regex PII ───────────────────────────────────────────────────────────
+# ── Pola Negasi untuk Contextual Marking (MOD-03) ─────────────────────────────
+NEGATORS = {
+    "tidak", "belum", "bukan", "kurang", "tanpa",
+    "jangan", "tak", "gak", "nggak", "tdk"
+}
+
+# ── Pola Regex PII dengan Waktu Eksekusi Linear (SEC-01 & SEC-02) ────────────
+# 1. Email: kuantifier terbatas mencegah catastrophic backtracking (ReDoS)
+_EMAIL = re.compile(r'[\w.+-]{1,64}@[\w-]{1,63}(?:\.[\w-]{1,63}){1,5}')
+
+# 2. Nomor Telepon (+62, 08xx, spasi/strip/titik) - dieksekusi sebelum NIM agar tidak salah tangkap
+_TELEPON = re.compile(r'(?<![\w+])(?:\+62|62|0)[\s.-]?8\d{1,3}(?:[\s.-]?\d{3,4}){2,3}(?!\d)')
+
+# 3. NIM: format bertitik (24.06.05.110.034) atau 9-12 digit berurutan
+_NIM = re.compile(r'(?<!\d)\d{2}[.\s-]?\d{2}[.\s-]?\d{2}[.\s-]?\d{3}[.\s-]?\d{3}(?!\d)|(?<!\d)\d{9,12}(?!\d)')
+
+# 4. Heuristik Nama Orang: Peka huruf besar-kecil (JANGAN gunakan re.IGNORECASE)
+_NAMA = re.compile(r'\b(?:Pak|Bu|Bapak|Ibu|Mas|Mbak|Dr|Prof)\.?\s+[A-Z][a-z]{1,20}(?:\s+[A-Z][a-z]{1,20}){0,2}\b')
+
 _PII_PATTERNS = [
-    # NIM: 9–12 digit angka berurutan (tanpa spasi)
-    (re.compile(r'\b\d{9,12}\b'), '[NIM]'),
-    # Email
-    (re.compile(r'\b[\w.+-]+@[\w-]+\.[a-z]{2,}\b', re.IGNORECASE), '[EMAIL]'),
-    # Nomor telepon: 08xx atau +62xx (8–13 digit)
-    (re.compile(r'\b(?:\+62|08)\d{7,11}\b'), '[TELEPON]'),
+    (_EMAIL, '[EMAIL]'),
+    (_TELEPON, '[TELEPON]'),
+    (_NIM, '[NIM]'),
+    (_NAMA, '[NAMA]'),
 ]
 
 
 def mask_pii(teks: str) -> str:
     """
-    Mendeteksi dan menyamarkan pola PII (NIM, Email, Nomor Telepon)
-    dengan placeholder yang aman.
+    Mendeteksi dan menyamarkan data pribadi (PII): Email, Nomor Telepon, NIM, dan Nama.
+    Menghasilkan teks tersanitasi yang aman dari kebocoran privasi.
 
     Parameters
     ----------
@@ -43,8 +67,11 @@ def mask_pii(teks: str) -> str:
 
     Returns
     -------
-    str  — Teks dengan PII yang sudah di-mask
+    str  — Teks dengan data pribadi yang sudah disamarkan
     """
+    if not isinstance(teks, str):
+        teks = '' if teks is None else str(teks)
+
     for pattern, placeholder in _PII_PATTERNS:
         teks = pattern.sub(placeholder, teks)
     return teks
@@ -52,8 +79,8 @@ def mask_pii(teks: str) -> str:
 
 def clean_text(teks: str) -> str:
     """
-    Lowercase + hapus tanda baca, angka, dan karakter non-alfabet.
-    Karakter '[' dan ']' dipertahankan agar placeholder PII tidak rusak.
+    Normalisasi kata kunci umum (MOD-05), konversi ke huruf kecil,
+    serta menghapus karakter non-alfabet kecuali tanda kurung placeholder PII.
 
     Parameters
     ----------
@@ -61,24 +88,31 @@ def clean_text(teks: str) -> str:
 
     Returns
     -------
-    str  — Teks bersih huruf kecil
+    str  — Teks bersih ternormalisasi
     """
+    if not isinstance(teks, str):
+        teks = '' if teks is None else str(teks)
+
+    # Normalisasi ejaan/frasa domain umum
+    teks = re.sub(r'\bwi[\s-]?fi\b', 'wifi', teks, flags=re.IGNORECASE)
+    teks = re.sub(r'\be[\s-]?mail\b', 'email', teks, flags=re.IGNORECASE)
+
     teks = teks.lower()
-    # Hapus semua karakter kecuali huruf, spasi, dan placeholder bracket
+    # Hapus semua karakter kecuali huruf alfabet, spasi, dan bracket placeholder PII
     teks = re.sub(r'[^a-z\s\[\]]', ' ', teks)
-    # Kolaps spasi ganda
+    # Rampingkan spasi ganda
     teks = re.sub(r'\s+', ' ', teks).strip()
     return teks
 
 
 def remove_stopwords(teks: str, stopwords: set = STOPWORDS) -> str:
     """
-    Membuang kata-kata stopword dari teks yang sudah bersih.
+    Membuang kata stopword non-semantik dari teks yang telah bersih.
 
     Parameters
     ----------
-    teks      : str   — Teks bersih (sudah lowercase)
-    stopwords : set   — Set kata stopword
+    teks      : str  — Teks bersih
+    stopwords : set  — Set kata henti
 
     Returns
     -------
@@ -105,40 +139,78 @@ def tokenize(teks: str) -> list:
     return [token for token in tokens if len(token) >= 2]
 
 
-def preprocess_pipeline(teks: str) -> dict:
+def mark_negation(tokens: list) -> list:
     """
-    Menjalankan seluruh pipeline preprocessing secara berurutan dan
-    mengembalikan hasil setiap tahap untuk keperluan explainability.
-
-    Alur:
-        Teks Asli
-        → PII Masking
-        → Lowercase + Hapus Tanda Baca
-        → Stopword Removal
-        → Tokenisasi
+    Menandai token yang berada tepat setelah kata negasi dengan awalan 'NOT_'
+    untuk mempertahankan konteks polaritas (MOD-03).
+    Contoh: ["wifi", "belum", "stabil"] -> ["wifi", "belum", "NOT_stabil"]
 
     Parameters
     ----------
-    teks : str  — Teks ulasan mentah
+    tokens : list[str]
+
+    Returns
+    -------
+    list[str]  — Daftar token dengan negasi kontekstual
+    """
+    out = []
+    flag = False
+    for w in tokens:
+        if flag:
+            out.append(f"NOT_{w}")
+            flag = False
+        else:
+            out.append(w)
+        if w in NEGATORS:
+            flag = True
+    return out
+
+
+def preprocess_pipeline(teks: str) -> dict:
+    """
+    Menjalankan seluruh pipeline preprocessing secara terurut dan defensif.
+
+    Alur:
+        1. Validasi Batas Panjang Input (SEC-01)
+        2. PII Sanitization (SEC-02)
+        3. Normalisasi & Lowercasing (MOD-05)
+        4. Stopword Removal Terkalibrasi (MOD-03)
+        5. Tokenisasi
+        6. Negation Context Marking (MOD-03)
+
+    Parameters
+    ----------
+    teks : str  — Teks ulasan masukan
 
     Returns
     -------
     dict dengan kunci:
         teks_asli       : str
         teks_masked_pii : str
-        teks_bersih     : str       (setelah cleaning)
-        teks_no_stop    : str       (setelah stopword removal)
+        teks_bersih     : str
+        teks_no_stop    : str
         tokens          : list[str]
         jumlah_token    : int
         pii_ditemukan   : bool
+
+    Raises
+    ------
+    InputTooLong : jika panjang karakter melebihi MAX_CHARS
     """
+    if not isinstance(teks, str):
+        teks = '' if teks is None else str(teks)
+
+    if len(teks) > MAX_CHARS:
+        raise InputTooLong(f"Ulasan melebihi batas maksimum {MAX_CHARS} karakter (panjang: {len(teks)}).")
+
     teks_asli = teks.strip()
     teks_masked = mask_pii(teks_asli)
     pii_ditemukan = teks_masked != teks_asli
 
     teks_clean = clean_text(teks_masked)
     teks_no_stop = remove_stopwords(teks_clean)
-    tokens = tokenize(teks_no_stop)
+    raw_tokens = tokenize(teks_no_stop)
+    tokens = mark_negation(raw_tokens)
 
     return {
         "teks_asli"       : teks_asli,
@@ -152,22 +224,5 @@ def preprocess_pipeline(teks: str) -> dict:
 
 
 def tokens_to_string(tokens: list) -> str:
-    """Helper: Gabungkan token list menjadi string untuk vectorizer."""
+    """Helper: Gabungkan token list menjadi string untuk ekstraksi fitur."""
     return ' '.join(tokens)
-
-
-# ── Self-test sederhana ──────────────────────────────────────────────────────
-if __name__ == '__main__':
-    test_cases = [
-        "WiFi di kelas sangat lambat!",
-        "NIM: 240605110034 susah login KRS",
-        "Hubungi 081234567890 atau email test@uin.ac.id untuk info",
-        "Bagus sekali!!!",
-        "",
-    ]
-    for tc in test_cases:
-        hasil = preprocess_pipeline(tc)
-        print(f"Input  : {repr(tc)}")
-        print(f"Tokens : {hasil['tokens']}")
-        print(f"PII    : {hasil['pii_ditemukan']}")
-        print("-" * 50)

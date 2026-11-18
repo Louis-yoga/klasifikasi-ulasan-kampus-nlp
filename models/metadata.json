@@ -1,0 +1,177 @@
+{
+  "model_algorithm": "Multinomial Naive Bayes (Laplace alpha=1.0) with Bag-of-Words (Unigram + Bigram)",
+  "dataset": {
+    "path": "data\\dataset.csv",
+    "sha256": "3cf18227548ac494bf3a3bbff05f75a5720e0cc2693b6802c2d61db1915f6cec",
+    "total_rows": 100,
+    "train_rows": 80,
+    "test_rows": 20,
+    "stratification": "stratified_80_20_compound",
+    "random_state": 42
+  },
+  "classes": {
+    "sentimen": [
+      "Positif",
+      "Negatif",
+      "Netral"
+    ],
+    "kategori": [
+      "Administrasi",
+      "Akademik",
+      "Fasilitas",
+      "Kemahasiswaan"
+    ]
+  },
+  "distribution": {
+    "sentimen": {
+      "Positif": 34,
+      "Negatif": 33,
+      "Netral": 33
+    },
+    "kategori": {
+      "Akademik": 25,
+      "Fasilitas": 25,
+      "Administrasi": 25,
+      "Kemahasiswaan": 25
+    }
+  },
+  "metrics": {
+    "sentimen": {
+      "holdout": {
+        "n": 20,
+        "accuracy": 0.7,
+        "precision_macro": 0.7083,
+        "recall_macro": 0.7083,
+        "f1_macro": 0.694,
+        "conf_matrix": [
+          [
+            6,
+            0,
+            0
+          ],
+          [
+            2,
+            5,
+            1
+          ],
+          [
+            0,
+            3,
+            3
+          ]
+        ],
+        "per_class": [
+          {
+            "Kelas": "Positif",
+            "Precision": 0.75,
+            "Recall": 1.0,
+            "F1-Score": 0.8571,
+            "Support": 6
+          },
+          {
+            "Kelas": "Negatif",
+            "Precision": 0.625,
+            "Recall": 0.625,
+            "F1-Score": 0.625,
+            "Support": 8
+          },
+          {
+            "Kelas": "Netral",
+            "Precision": 0.75,
+            "Recall": 0.5,
+            "F1-Score": 0.6,
+            "Support": 6
+          }
+        ]
+      },
+      "cv_repeated_kfold": {
+        "n_splits": 5,
+        "n_repeats": 5,
+        "accuracy_mean": 0.8,
+        "accuracy_std": 0.0938,
+        "f1_macro_mean": 0.7978,
+        "f1_macro_std": 0.0953
+      }
+    },
+    "kategori": {
+      "holdout": {
+        "n": 20,
+        "accuracy": 0.75,
+        "precision_macro": 0.7458,
+        "recall_macro": 0.7458,
+        "f1_macro": 0.7417,
+        "conf_matrix": [
+          [
+            3,
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            5,
+            0,
+            1
+          ],
+          [
+            1,
+            1,
+            3,
+            0
+          ],
+          [
+            1,
+            0,
+            0,
+            4
+          ]
+        ],
+        "per_class": [
+          {
+            "Kelas": "Administrasi",
+            "Precision": 0.6,
+            "Recall": 0.75,
+            "F1-Score": 0.6667,
+            "Support": 4
+          },
+          {
+            "Kelas": "Akademik",
+            "Precision": 0.8333,
+            "Recall": 0.8333,
+            "F1-Score": 0.8333,
+            "Support": 6
+          },
+          {
+            "Kelas": "Fasilitas",
+            "Precision": 0.75,
+            "Recall": 0.6,
+            "F1-Score": 0.6667,
+            "Support": 5
+          },
+          {
+            "Kelas": "Kemahasiswaan",
+            "Precision": 0.8,
+            "Recall": 0.8,
+            "F1-Score": 0.8,
+            "Support": 5
+          }
+        ]
+      },
+      "cv_repeated_kfold": {
+        "n_splits": 5,
+        "n_repeats": 5,
+        "accuracy_mean": 0.756,
+        "accuracy_std": 0.1023,
+        "f1_macro_mean": 0.756,
+        "f1_macro_std": 0.1019
+      }
+    }
+  },
+  "files": {
+    "vectorizer": "669fce880dd6658a7fc19c0809232ab3b0783f2f0b3208e43b3c1c7387ffdce3",
+    "sentimen": "7eb4e3cd8ed17311db17ee917d0d1c0ca9738566a1b9444ba8aadbd6227e0a9d",
+    "kategori": "f23d995ce581b0f4e14b8b9cde49996ddcb85dde49ec0e40dc61f0620e204a25"
+  },
+  "sklearn_version": "1.9.1",
+  "created_utc": "2026-11-18T07:48:06.851702+00:00"
+}
