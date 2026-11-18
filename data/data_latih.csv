@@ -1,0 +1,101 @@
+id;ulasan;sentimen;kategori
+1;Dosen pengampu mata kuliah statistika menjelaskan materi dengan runtut, jadi saya lebih mudah memahami konsep yang rumit.;Positif;Akademik
+2;Perpustakaan pusat nyaman banget, ruang bacanya luas, ber-AC, dan koleksi bukunya selalu diperbarui tiap semester.;Positif;Fasilitas
+3;Proses pengisian KRS online sering error saat jam sibuk, kami harus mencoba berulang kali sampai tengah malam.;Negatif;Administrasi
+4;Ikut UKM paduan suara bikin saya punya banyak teman baru dan lebih percaya diri tampil di depan umum.;Positif;Kemahasiswaan
+5;Silabus berubah di tengah semester tanpa pemberitahuan jelas, akhirnya kami bingung materi mana yang akan keluar saat ujian.;Negatif;Akademik
+6;Wi-Fi kampus sering putus saat jam kuliah, padahal kami butuh akses internet untuk mengerjakan tugas daring.;Negatif;Fasilitas
+7;Pelayanan di bagian akademik ramah dan cepat, surat keterangan aktif kuliah saya selesai dalam hitungan jam.;Positif;Administrasi
+8;Dana kegiatan organisasi mahasiswa sering dipotong tanpa penjelasan, akibatnya acara yang sudah kami rencanakan terpaksa dibatalkan.;Negatif;Kemahasiswaan
+9;Perkuliahan semester ini dibagi dalam tiga sesi, yaitu pagi, siang, dan sore, sesuai kelas yang dipilih mahasiswa.;Netral;Akademik
+10;Laboratorium komputer berada di gedung C lantai dua dan dibuka setiap hari kerja pukul delapan sampai empat sore.;Netral;Fasilitas
+11;Pembayaran UKT dapat dilakukan melalui bank mitra atau virtual account dengan batas waktu sesuai kalender akademik.;Netral;Administrasi
+12;Pendaftaran anggota baru unit kegiatan mahasiswa dibuka selama dua minggu pertama setelah masa orientasi berakhir.;Netral;Kemahasiswaan
+13;Praktikum pemrograman benar-benar membantu, soalnya langsung dipraktikkan dengan studi kasus yang relevan sama dunia kerja.;Positif;Akademik
+14;Kantin sekarang bersih dan pilihan makanannya beragam dengan harga yang masih ramah di kantong mahasiswa.;Positif;Fasilitas
+15;Pengurusan legalisir ijazah memakan waktu lebih dari seminggu, padahal saya butuh cepat untuk melamar kerja.;Negatif;Administrasi
+16;Kegiatan bakti sosial yang diadakan BEM tahun ini terorganisir rapi dan melibatkan banyak mahasiswa lintas jurusan.;Positif;Kemahasiswaan
+17;Nilai UTS keluar terlambat hampir sebulan, jadi kami tidak sempat evaluasi sebelum masuk ujian akhir.;Negatif;Akademik
+18;Banyak proyektor di ruang kelas rusak atau buram, dosen jadi harus menunggu lama hanya untuk menyiapkan presentasi.;Negatif;Fasilitas
+19;Aplikasi portal mahasiswa sekarang sudah mudah dipakai, jadwal, nilai, dan tagihan bisa dicek dalam satu tempat.;Positif;Administrasi
+20;Bimbingan pembina UKM kurang, kami hampir tidak pernah diarahkan saat menyusun proposal dan laporan kegiatan.;Negatif;Kemahasiswaan
+21;Mata kuliah metodologi penelitian ditawarkan pada semester lima dengan bobot tiga SKS dan wajib diambil seluruh mahasiswa.;Netral;Akademik
+22;Area parkir kendaraan terbagi menjadi dua zona, satu untuk motor di sisi barat dan satu lagi untuk mobil.;Netral;Fasilitas
+23;Pengajuan cuti akademik dilakukan melalui portal dengan melampirkan surat permohonan dan persetujuan dosen wali.;Netral;Administrasi
+24;Pemilihan ketua himpunan mahasiswa dilaksanakan setiap akhir tahun dengan sistem pemungutan suara langsung oleh seluruh anggota.;Netral;Kemahasiswaan
+25;Kurikulum prodi sudah mengikuti perkembangan industri, banyak mata kuliah pilihan yang sesuai minat dan peluang karier.;Positif;Akademik
+26;Mushola baru di dekat gedung fakultas bersih, sejuk, dan tempat wudhunya luas jadi tidak perlu antre panjang.;Positif;Fasilitas
+27;Petugas loket sering tidak ada di tempat saat jam kerja dan informasi yang diberikan kadang berbeda-beda.;Negatif;Administrasi
+28;Lomba debat antar fakultas kemarin seru banget, panitianya profesional dan hadiah serta sertifikatnya sangat bermanfaat.;Positif;Kemahasiswaan
+29;Beberapa dosen sering membatalkan kelas secara mendadak sehingga jam kuliah banyak terbuang dan materi tidak tuntas.;Negatif;Akademik
+30;Toilet di lantai tiga sering kotor dan kehabisan air, sudah dilaporkan berkali-kali tapi belum ada perbaikan.;Negatif;Fasilitas
+31;Beasiswa saya cair tepat waktu, dan petugas bagian keuangan sangat sabar menjawab semua pertanyaan soal berkas.;Positif;Administrasi
+32;Sekretariat organisasi sempit dan bocor, jadi kami kesulitan mengadakan rapat rutin ketika hujan turun.;Negatif;Kemahasiswaan
+33;Ujian akhir semester dilaksanakan selama dua minggu dengan sistem tatap muka dan sebagian mata kuliah berbentuk proyek.;Netral;Akademik
+34;Lapangan olahraga kampus dapat dipakai mahasiswa mulai sore hari setelah kegiatan perkuliahan selesai dengan sistem reservasi.;Netral;Fasilitas
+35;Pendaftaran wisuda dibuka dua kali dalam setahun dan peserta wajib melengkapi berkas administrasi serta bebas pustaka.;Netral;Administrasi
+36;Kegiatan orientasi mahasiswa baru berlangsung selama lima hari dengan agenda pengenalan kampus, organisasi, dan tata tertib akademik.;Netral;Kemahasiswaan
+37;Bimbingan skripsi dari dosen pembimbing sangat terarah, revisi selalu dibalas cepat dengan masukan yang konkret.;Positif;Akademik
+38;Ruang diskusi dan co-working space di lantai satu perpustakaan sangat membantu buat kerja kelompok sampai malam.;Positif;Fasilitas
+39;Revisi data nama di transkrip nilai ditolak berkali-kali tanpa alasan jelas, prosedurnya benar-benar berbelit.;Negatif;Administrasi
+40;Tim futsal kampus mendapat pelatih bagus dan dukungan penuh dari kemahasiswaan sehingga kami berhasil juara tingkat provinsi.;Positif;Kemahasiswaan
+41;Tugas kelompok menumpuk di minggu yang sama, rasanya beban belajar tidak dipertimbangkan oleh para pengajar.;Negatif;Akademik
+42;AC di beberapa ruang kelas mati, kalau siang suasananya pengap sekali dan susah fokus mendengarkan dosen.;Negatif;Fasilitas
+43;Layanan helpdesk daring kampus tanggap, pertanyaan soal registrasi ulang saya dijawab kurang dari satu jam.;Positif;Administrasi
+44;Informasi lomba dan seminar dari bagian kemahasiswaan sering terlambat sehingga kami tidak sempat mendaftar.;Negatif;Kemahasiswaan
+45;Penilaian mata kuliah terdiri dari kehadiran, tugas, ujian tengah semester, dan ujian akhir dengan persentase berbeda.;Netral;Akademik
+46;Gedung rektorat memiliki lima lantai, dilengkapi dua lift dan satu ruang pertemuan besar untuk acara resmi.;Netral;Fasilitas
+47;Formulir pengajuan surat rekomendasi bisa diunduh di situs fakultas lalu diserahkan ke bagian tata usaha.;Netral;Administrasi
+48;Setiap organisasi wajib menyerahkan laporan pertanggungjawaban kepada kemahasiswaan paling lambat sebulan setelah kegiatan berakhir.;Netral;Kemahasiswaan
+49;Kelas kecil membuat diskusi jadi hidup, dosen juga hafal perkembangan belajar tiap mahasiswa.;Positif;Akademik
+50;Fasilitas laboratorium kimia lengkap dan alatnya terawat, asisten juga rutin mengecek kondisi peralatan sebelum praktikum.;Positif;Fasilitas
+51;Biaya tambahan tidak tercantum di pengumuman awal, kami baru tahu saat pembayaran dan itu sangat membingungkan.;Negatif;Administrasi
+52;Program pelatihan kepemimpinan yang difasilitasi kampus mengubah cara saya mengatur waktu dan memimpin tim dengan lebih baik.;Positif;Kemahasiswaan
+53;Materi kuliah yang diberikan sering sekadar membaca slide, tidak ada contoh nyata sehingga membosankan dan sulit dipahami.;Negatif;Akademik
+54;Jumlah kursi di ruang tunggu dan kantin tidak sebanding dengan banyaknya mahasiswa, sering kali harus berdiri.;Negatif;Fasilitas
+55;Proses registrasi ulang tahun ini jauh lebih praktis karena tidak perlu antre dan semua berkas diunggah online.;Positif;Administrasi
+56;Seleksi pengurus BEM terasa tidak adil karena yang terpilih kebanyakan dari lingkaran pertemanan yang sama.;Negatif;Kemahasiswaan
+57;Mahasiswa semester akhir bisa memilih antara skripsi, magang bersertifikat, atau proyek kolaborasi sebagai syarat kelulusan.;Netral;Akademik
+58;Bus kampus beroperasi dengan dua rute utama yaitu gerbang depan menuju asrama dan gerbang belakang menuju stasiun.;Netral;Fasilitas
+59;Jam layanan bagian administrasi umum adalah Senin sampai Jumat pukul sembilan pagi hingga tiga sore.;Netral;Administrasi
+60;Beasiswa prestasi non-akademik diberikan kepada mahasiswa yang menjuarai kompetisi tingkat nasional dengan bukti sertifikat resmi.;Netral;Kemahasiswaan
+61;Saya puas dengan kualitas kuliah umum dari praktisi, wawasan baru yang didapat langsung bisa dipakai buat tugas.;Positif;Akademik
+62;Kampus sudah menyediakan jalur disabilitas dan lift ramah kursi roda, terasa sekali kepedulian terhadap inklusivitas.;Positif;Fasilitas
+63;Sistem pembayaran sering menolak transaksi yang sudah berhasil, jadi kami harus membawa bukti transfer ke kantor keuangan.;Negatif;Administrasi
+64;Komunitas pecinta alam di kampus sangat solid, kegiatan pendakian selalu memperhatikan keselamatan dan saling membantu.;Positif;Kemahasiswaan
+65;Standar penilaian antar dosen paralel tidak seragam, kelas sebelah dapat nilai bagus padahal tugasnya jauh lebih ringan.;Negatif;Akademik
+66;Lahan parkir motor selalu penuh sebelum jam delapan, akibatnya banyak teman terpaksa parkir di pinggir jalan.;Negatif;Fasilitas
+67;Pengajuan keringanan UKT diproses transparan dan hasilnya diumumkan sesuai jadwal, sangat membantu keluarga yang ekonominya pas-pasan.;Positif;Administrasi
+68;Izin kegiatan malam hari terlalu rumit dan sering ditolak, padahal acara kami berlangsung tertib dan bermanfaat.;Negatif;Kemahasiswaan
+69;Perpindahan kuliah daring ke luring dilakukan bertahap, beberapa mata kuliah teori masih dilaksanakan lewat platform pembelajaran.;Netral;Akademik
+70;Loker penyimpanan barang tersedia di lantai dasar perpustakaan dan dapat dipinjam menggunakan kartu mahasiswa selama jam operasional.;Netral;Fasilitas
+71;Kartu mahasiswa baru dicetak kolektif oleh bagian tata usaha dan diambil di loket administrasi setelah pengumuman resmi.;Netral;Administrasi
+72;Kampus menyelenggarakan festival tahunan yang menampilkan pentas seni, bazar, dan pameran karya dari berbagai unit kegiatan mahasiswa.;Netral;Kemahasiswaan
+73;Dosen wali aktif memantau IPK dan memberi saran pemilihan mata kuliah, jadi rencana studi saya lebih tertata.;Positif;Akademik
+74;Taman kampus rapi dan teduh, jadi tempat favorit saya untuk istirahat atau belajar santai di sela kuliah.;Positif;Fasilitas
+75;Pelayanan administrasi lambat, surat pengantar magang saya baru jadi setelah tiga kali bolak-balik ke kantor.;Negatif;Administrasi
+76;Dukungan kemahasiswaan untuk tim kami mengikuti kompetisi robotik nasional luar biasa, mulai dari pendanaan sampai transportasi.;Positif;Kemahasiswaan
+77;Jadwal kuliah bentrok dua mata kuliah wajib, dan prodi lama sekali memberi solusi buat kami.;Negatif;Akademik
+78;Stop kontak di ruang kelas hampir tidak ada yang berfungsi, laptop kami jadi cepat kehabisan baterai.;Negatif;Fasilitas
+79;Prosedur pindah prodi dijelaskan lengkap di buku panduan dan staf yang membantu saya sangat komunikatif.;Positif;Administrasi
+80;Kegiatan organisasi sering bentrok dengan jadwal kuliah dan pihak kampus tidak memberi dispensasi sama sekali.;Negatif;Kemahasiswaan
+81;Program pertukaran pelajar membuka pendaftaran setiap awal semester, dengan syarat minimal IPK dan kemampuan bahasa asing tertentu.;Netral;Akademik
+82;Gedung asrama putri dan putra dipisahkan oleh area taman, dengan akses masuk memakai kartu identitas penghuni.;Netral;Fasilitas
+83;Pengambilan transkrip sementara dapat dilakukan secara mandiri lewat portal, sedangkan transkrip resmi harus diajukan ke bagian akademik.;Netral;Administrasi
+84;Rapat koordinasi antar organisasi mahasiswa diadakan sebulan sekali di aula dengan perwakilan setiap himpunan dan UKM.;Netral;Kemahasiswaan
+85;Materi di e-learning kampus lengkap, ada rekaman kuliah dan modul, enak buat belajar ulang sebelum ujian.;Positif;Akademik
+86;Sistem pendingin dan pencahayaan di auditorium baru sangat bagus, acara seminar jadi lebih nyaman diikuti.;Positif;Fasilitas
+87;Informasi pengumuman penting hanya disebar lewat papan fisik, jadi mahasiswa yang jarang ke kampus sering ketinggalan.;Negatif;Administrasi
+88;Mentoring dari kakak tingkat lewat program pendampingan membantu saya cepat beradaptasi di semester pertama.;Positif;Kemahasiswaan
+89;Soal ujian tidak sesuai materi yang diajarkan di kelas, bikin banyak teman saya kecewa dan panik.;Negatif;Akademik
+90;Peralatan di laboratorium fisika sudah tua dan kurang kalibrasi, hasil praktikum sering tidak akurat.;Negatif;Fasilitas
+91;Pengurusan surat izin penelitian dibantu staf dengan sigap, tinggal tanda tangan dan semuanya beres hari itu juga.;Positif;Administrasi
+92;Pengumuman hasil seleksi duta kampus tidak transparan, kami tidak tahu kriteria penilaian yang digunakan panitia.;Negatif;Kemahasiswaan
+93;Dosen memberikan kuis singkat di awal pertemuan, lalu dilanjutkan presentasi materi dan sesi tanya jawab.;Netral;Akademik
+94;Fotokopi dan percetakan tersedia di samping kantin dengan jam buka yang mengikuti jadwal perkuliahan reguler.;Netral;Fasilitas
+95;Pengumuman pembayaran dan tenggat registrasi ditempel di papan informasi gedung administrasi serta diunggah di situs resmi.;Netral;Administrasi
+96;Kompetisi karya tulis ilmiah tingkat universitas dibuka untuk seluruh mahasiswa aktif dengan tema yang ditentukan panitia.;Netral;Kemahasiswaan
+97;Fakultas rutin mengadakan pelatihan penulisan jurnal, sangat bermanfaat untuk mahasiswa yang ingin mulai publikasi ilmiah.;Positif;Akademik
+98;Pos satpam berjaga dua puluh empat jam di gerbang utama dan setiap pengunjung wajib mencatat identitas sebelum masuk.;Netral;Fasilitas
+99;Antrean di loket keuangan panjang sekali saat akhir bulan, sementara hanya satu petugas yang melayani.;Negatif;Administrasi
+100;Acara dies natalis tahun ini meriah, mahasiswa dilibatkan sebagai panitia dan merasa karyanya dihargai.;Positif;Kemahasiswaan

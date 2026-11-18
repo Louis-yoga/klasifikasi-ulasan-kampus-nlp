@@ -1,0 +1,101 @@
+id;ulasan;sentimen;kategori
+1;"""Materi perkuliahan disampaikan secara runtut sehingga lebih mudah memahami konsep yang sebelumnya terasa cukup sulit.""";Positif;Akademik
+2;"""Jadwal perkuliahan semester ini masih sama seperti periode sebelumnya tanpa perubahan yang berarti.""";Netral;Akademik
+3;"""Penyampaian materi terlalu cepat sehingga beberapa konsep penting sulit dipahami oleh sebagian mahasiswa.""";Negatif;Akademik
+4;"""Dosen memberikan contoh kasus nyata yang membuat pembahasan teori terasa lebih relevan dengan dunia kerja.""";Positif;Akademik
+5;"""Informasi mengenai perubahan jadwal ujian sudah tersedia melalui portal akademik kampus.""";Netral;Akademik
+6;"""Pembagian jadwal praktikum sering bertabrakan dengan mata kuliah lain sehingga menyulitkan pengaturan waktu.""";Negatif;Akademik
+7;"""Sistem pembelajaran berbasis proyek membantu mahasiswa mengembangkan kemampuan berpikir kritis dan pemecahan masalah.""";Positif;Akademik
+8;"""Jumlah mata kuliah yang ditawarkan semester ini masih mengikuti kurikulum program studi.""";Netral;Akademik
+9;"""Materi yang diberikan dalam perkuliahan kurang sesuai dengan topik yang tercantum pada silabus.""";Negatif;Akademik
+10;"""Diskusi kelas berjalan interaktif dan mahasiswa diberi kesempatan menyampaikan pendapat selama pembelajaran.""";Positif;Akademik
+11;"""Pengumuman hasil ujian biasanya diterbitkan melalui sistem informasi akademik.""";Netral;Akademik
+12;"""Penjelasan saat perkuliahan kurang terstruktur sehingga mahasiswa harus mencari referensi tambahan sendiri.""";Negatif;Akademik
+13;"""Metode pengajaran yang digunakan cukup bervariasi dan tidak hanya mengandalkan presentasi materi.""";Positif;Akademik
+14;"""Pelaksanaan ujian tengah semester berlangsung sesuai kalender akademik yang telah ditetapkan.""";Netral;Akademik
+15;"""Nilai tugas sering diumumkan terlambat sehingga mahasiswa kesulitan mengevaluasi hasil belajarnya.""";Negatif;Akademik
+16;"""Bahan ajar digital sangat membantu ketika ingin mengulang pembahasan setelah perkuliahan selesai.""";Positif;Akademik
+17;"""Mata kuliah pilihan yang tersedia masih mengikuti daftar penawaran pada semester berjalan.""";Netral;Akademik
+18;"""Beban tugas dari beberapa mata kuliah terasa berlebihan ketika mendekati akhir semester.""";Negatif;Akademik
+19;"""Kegiatan praktikum memberikan pengalaman langsung yang sesuai dengan materi teori di kelas.""";Positif;Akademik
+20;"""Proses pengisian rencana studi dilakukan melalui portal akademik pada periode yang sudah ditentukan.""";Netral;Akademik
+21;"""Konsultasi akademik sulit dilakukan karena waktu bimbingan sering tidak sesuai dengan jadwal mahasiswa.""";Negatif;Akademik
+22;"""Materi tambahan yang dibagikan setelah kelas membantu memperdalam pemahaman terhadap topik perkuliahan.""";Positif;Akademik
+23;"""Beberapa mata kuliah menggunakan sistem penilaian berdasarkan tugas individu dan ujian akhir.""";Netral;Akademik
+24;"""Penjelasan mengenai kriteria penilaian tugas kurang transparan sehingga mahasiswa bingung menentukan standar pengerjaan.""";Negatif;Akademik
+25;"""Pembelajaran berbasis diskusi membuat suasana kelas lebih aktif dibandingkan metode ceramah sepanjang pertemuan.""";Positif;Akademik
+26;"""Ruang kelas memiliki pendingin udara yang berfungsi baik sehingga kegiatan belajar terasa nyaman.""";Positif;Fasilitas
+27;"""Area parkir kampus tersedia di beberapa titik dengan kapasitas yang berbeda.""";Netral;Fasilitas
+28;"""Jaringan internet sering terputus ketika banyak mahasiswa mengaksesnya secara bersamaan.""";Negatif;Fasilitas
+29;"""Perpustakaan menyediakan tempat belajar yang tenang dengan pencahayaan cukup baik.""";Positif;Fasilitas
+30;"""Beberapa gedung perkuliahan memiliki akses masuk yang berbeda untuk setiap lantai.""";Netral;Fasilitas
+31;"""Kondisi toilet kurang terawat dan persediaan air terkadang tidak mencukupi kebutuhan pengguna.""";Negatif;Fasilitas
+32;"""Fasilitas laboratorium cukup lengkap untuk menunjang kegiatan praktikum mahasiswa.""";Positif;Fasilitas
+33;"""Kantin kampus menyediakan beberapa pilihan makanan dengan rentang harga yang bervariasi.""";Netral;Fasilitas
+34;"""Kursi di sejumlah ruang kelas sudah rusak tetapi belum mendapatkan perbaikan.""";Negatif;Fasilitas
+35;"""Area taman kampus tertata rapi dan cocok digunakan untuk beristirahat di sela perkuliahan.""";Positif;Fasilitas
+36;"""Fasilitas olahraga dapat digunakan mahasiswa pada waktu tertentu sesuai ketentuan kampus.""";Netral;Fasilitas
+37;"""Proyektor di ruang perkuliahan sering mengalami gangguan ketika digunakan untuk presentasi.""";Negatif;Fasilitas
+38;"""Tempat ibadah kampus bersih dan memiliki fasilitas pendukung yang cukup memadai.""";Positif;Fasilitas
+39;"""Tempat sampah tersedia di sekitar gedung perkuliahan dan area kantin.""";Netral;Fasilitas
+40;"""Koneksi WiFi di perpustakaan sangat lambat sehingga menghambat pencarian referensi digital.""";Negatif;Fasilitas
+41;"""Ruang diskusi kelompok memberikan suasana nyaman untuk menyelesaikan tugas bersama teman.""";Positif;Fasilitas
+42;"""Gedung perkuliahan memiliki beberapa fasilitas penunjang seperti lift dan tangga darurat.""";Netral;Fasilitas
+43;"""Penerangan di area parkir kurang memadai ketika mahasiswa pulang pada malam hari.""";Negatif;Fasilitas
+44;"""Kebersihan lingkungan kampus cukup terjaga berkat ketersediaan petugas kebersihan setiap hari.""";Positif;Fasilitas
+45;"""Laboratorium komputer memiliki perangkat dengan spesifikasi yang berbeda pada setiap ruangan.""";Netral;Fasilitas
+46;"""Pendingin udara di ruang kelas tidak berfungsi optimal sehingga suasana belajar terasa pengap.""";Negatif;Fasilitas
+47;"""Area baca perpustakaan menyediakan meja dan stopkontak yang memudahkan mahasiswa belajar menggunakan laptop.""";Positif;Fasilitas
+48;"""Ketersediaan ruang kelas mengikuti pembagian jadwal penggunaan gedung selama kegiatan akademik berlangsung.""";Netral;Fasilitas
+49;"""Tempat parkir sering penuh pada pagi hari sehingga mahasiswa kesulitan menemukan ruang kosong.""";Negatif;Fasilitas
+50;"""Proses pengajuan surat aktif kuliah dapat dilakukan secara daring tanpa harus datang berkali-kali.""";Positif;Administrasi
+51;"""Loket pelayanan administrasi beroperasi pada hari kerja sesuai jadwal yang telah diumumkan.""";Netral;Administrasi
+52;"""Pengurusan dokumen akademik membutuhkan waktu terlalu lama meskipun seluruh persyaratan sudah dipenuhi.""";Negatif;Administrasi
+53;"""Petugas administrasi memberikan penjelasan yang jelas mengenai persyaratan pengajuan dokumen.""";Positif;Administrasi
+54;"""Pembayaran biaya pendidikan dilakukan melalui beberapa metode yang disediakan oleh pihak kampus.""";Netral;Administrasi
+55;"""Informasi mengenai biaya tambahan perkuliahan sering berubah tanpa pemberitahuan yang memadai.""";Negatif;Administrasi
+56;"""Pengajuan legalisasi dokumen berjalan lancar dan hasilnya dapat diambil sesuai estimasi waktu.""";Positif;Administrasi
+57;"""Formulir pengajuan cuti akademik tersedia dalam format digital melalui layanan administrasi kampus.""";Netral;Administrasi
+58;"""Antrean pelayanan akademik sangat panjang sehingga waktu tunggu menjadi tidak efisien.""";Negatif;Administrasi
+59;"""Sistem pendaftaran ulang mudah digunakan dan petunjuk pengisiannya cukup lengkap.""";Positif;Administrasi
+60;"""Jam pelayanan bagian keuangan mengikuti ketentuan operasional yang berlaku di kampus.""";Netral;Administrasi
+61;"""Kesalahan input data pembayaran belum segera diperbaiki meskipun laporan sudah disampaikan.""";Negatif;Administrasi
+62;"""Petugas pelayanan cukup responsif ketika mahasiswa membutuhkan bantuan terkait dokumen perkuliahan.""";Positif;Administrasi
+63;"""Informasi persyaratan beasiswa dapat ditemukan melalui halaman layanan administrasi mahasiswa.""";Netral;Administrasi
+64;"""Prosedur pengajuan dokumen terlalu rumit karena harus melewati banyak tahapan persetujuan.""";Negatif;Administrasi
+65;"""Layanan surat keterangan mahasiswa membantu memenuhi kebutuhan administrasi untuk berbagai keperluan.""";Positif;Administrasi
+66;"""Pembukaan periode pembayaran semester diumumkan melalui kanal informasi resmi kampus.""";Netral;Administrasi
+67;"""Portal administrasi sering mengalami gangguan ketika digunakan untuk mengunggah berkas persyaratan.""";Negatif;Administrasi
+68;"""Petunjuk pengurusan dokumen dibuat secara sistematis sehingga mahasiswa tidak kesulitan mengikuti prosedurnya.""";Positif;Administrasi
+69;"""Pengambilan kartu mahasiswa dilakukan melalui bagian pelayanan yang telah ditentukan.""";Netral;Administrasi
+70;"""Respons terhadap pengaduan administrasi sangat lambat dan tidak disertai informasi perkembangan penyelesaian.""";Negatif;Administrasi
+71;"""Organisasi mahasiswa menyediakan kegiatan yang membantu mengembangkan kemampuan komunikasi dan kepemimpinan.""";Positif;Kemahasiswaan
+72;"""Pendaftaran anggota organisasi kampus biasanya dilakukan pada awal periode kepengurusan.""";Netral;Kemahasiswaan
+73;"""Informasi kegiatan mahasiswa sering disebarkan mendadak sehingga banyak peserta tidak sempat mempersiapkan diri.""";Negatif;Kemahasiswaan
+74;"""Program pengembangan minat dan bakat memberikan kesempatan mahasiswa mencoba pengalaman baru.""";Positif;Kemahasiswaan
+75;"""Beberapa organisasi mengadakan pertemuan rutin sesuai agenda internal masing-masing.""";Netral;Kemahasiswaan
+76;"""Penyaluran dana kegiatan mahasiswa kurang transparan dan sulit dipantau oleh pengurus.""";Negatif;Kemahasiswaan
+77;"""Kegiatan pengabdian masyarakat memberikan pengalaman berharga dalam berinteraksi langsung dengan lingkungan sekitar.""";Positif;Kemahasiswaan
+78;"""Kompetisi antarmahasiswa diselenggarakan dalam beberapa bidang sesuai agenda kemahasiswaan tahunan.""";Netral;Kemahasiswaan
+79;"""Kesempatan mengikuti program pertukaran mahasiswa masih terbatas dan informasinya kurang tersosialisasi.""";Negatif;Kemahasiswaan
+80;"""Program pendampingan mahasiswa baru membantu proses adaptasi terhadap lingkungan perkuliahan.""";Positif;Kemahasiswaan
+81;"""Unit kegiatan mahasiswa memiliki jadwal latihan yang disesuaikan dengan ketersediaan tempat.""";Netral;Kemahasiswaan
+82;"""Penyelenggaraan acara kampus kurang terorganisasi sehingga peserta harus menunggu terlalu lama.""";Negatif;Kemahasiswaan
+83;"""Komunitas mahasiswa menjadi wadah yang baik untuk mengembangkan kreativitas dan kolaborasi lintas jurusan.""";Positif;Kemahasiswaan
+84;"""Informasi mengenai kegiatan sukarelawan tersedia melalui pengumuman kemahasiswaan.""";Netral;Kemahasiswaan
+85;"""Fasilitas pendukung kegiatan organisasi tidak selalu tersedia ketika dibutuhkan untuk acara besar.""";Negatif;Kemahasiswaan
+86;"""Program beasiswa prestasi memberikan apresiasi kepada mahasiswa yang aktif mengembangkan kemampuan akademik dan nonakademik.""";Positif;Kemahasiswaan
+87;"""Kegiatan orientasi mahasiswa baru dilaksanakan pada awal tahun akademik dengan agenda yang sudah ditentukan.""";Netral;Kemahasiswaan
+88;"""Koordinasi antarpanitia kurang efektif sehingga beberapa agenda acara mengalami perubahan mendadak.""";Negatif;Kemahasiswaan
+89;"""Kegiatan seminar karier membantu mahasiswa memahami kebutuhan industri sebelum memasuki dunia kerja.""";Positif;Kemahasiswaan
+90;"""Jadwal kegiatan ekstrakurikuler diumumkan melalui media informasi organisasi masing-masing.""";Netral;Kemahasiswaan
+91;"""Kesempatan menyampaikan aspirasi mahasiswa masih kurang diperhatikan dalam beberapa kegiatan kampus.""";Negatif;Kemahasiswaan
+92;"""Program mentoring memberikan ruang bagi mahasiswa untuk berbagi pengalaman dan saling mendukung.""";Positif;Kemahasiswaan
+93;"""Kampus menyediakan beberapa kegiatan kompetitif untuk mahasiswa yang tertarik mengikuti perlombaan.""";Netral;Kemahasiswaan
+94;"""Kegiatan organisasi sering dijadwalkan bersamaan dengan perkuliahan sehingga partisipasi menjadi kurang maksimal.""";Negatif;Kemahasiswaan
+95;"""Kolaborasi antara organisasi mahasiswa dan pihak kampus menghasilkan kegiatan yang bermanfaat bagi lingkungan sekitar.""";Positif;Kemahasiswaan
+96;"""Pendataan peserta kegiatan dilakukan melalui formulir daring yang disediakan oleh panitia.""";Netral;Kemahasiswaan
+97;"""Publikasi kegiatan mahasiswa kurang menarik sehingga informasi acara sulit menjangkau calon peserta.""";Negatif;Kemahasiswaan
+98;"""Pelatihan kewirausahaan kampus memberikan wawasan praktis tentang pengembangan ide bisnis mahasiswa.""";Positif;Kemahasiswaan
+99;"""Program kerja organisasi disusun berdasarkan agenda dan kebutuhan anggota selama satu periode.""";Netral;Kemahasiswaan
+100;"""Evaluasi kegiatan mahasiswa jarang dilakukan sehingga permasalahan yang sama terus terulang.""";Negatif;Kemahasiswaan
