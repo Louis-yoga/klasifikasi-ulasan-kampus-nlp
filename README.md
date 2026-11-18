@@ -6,7 +6,10 @@
 > **Pengembang:** Louis Ainur Rofiq Prayoga (NIM: 240605110034 / Kelas H)  
 > **Branch Repositori:** `fix/pra-uji-mendalam` | **Versi:** 2.0.0 (Audit-Hardened)
 
+
 ---
+
+**Note:** Run the test suite with `python -m pytest -v tests/` to ensure all functionality works.
 
 ## 📌 1. Ringkasan Eksekutif & Latar Belakang
 
@@ -17,7 +20,10 @@ Sistem ini dirancang untuk mengotomatiskan analisis ulasan mahasiswa terkait lay
 
 Sistem dirancang dengan arsitektur **Augmented Intelligence** (sebagai *decision support* pendukung staf kampus, bukan pengganti kebijakan manusia) dan memenuhi **5 Pilar Trustworthy AI** (*Privacy, Fairness, Explainability, Transparency, dan Human Oversight*).
 
+
 ---
+
+**Note:** Run the test suite with `python -m pytest -v tests/` to ensure all functionality works.
 
 ## 🔒 2. Fitur Keamanan & Integritas Sistem (Hasil Audit Teknis)
 
@@ -44,7 +50,10 @@ Berdasarkan hasil audit mendalam terhadap kerentanan dan integritas data, sistem
    * Mekanisme *throttle* berbasis waktu untuk mencegah spamming inferensi.
    * Logging terstruktur berformat JSON tanpa merekam teks ulasan atau identitas pengguna.
 
+
 ---
+
+**Note:** Run the test suite with `python -m pytest -v tests/` to ensure all functionality works.
 
 ## 🚀 3. Panduan Menjalankan Proyek
 
@@ -53,7 +62,10 @@ Berdasarkan hasil audit mendalam terhadap kerentanan dan integritas data, sistem
 * **Python:** Versi 3.10 atau lebih baru (direkomendasikan 3.12+)
 * **Package Manager:** `pip`
 
+
 ---
+
+**Note:** Run the test suite with `python -m pytest -v tests/` to ensure all functionality works.
 
 ### B. Langkah Instalasi
 
@@ -79,7 +91,10 @@ Berdasarkan hasil audit mendalam terhadap kerentanan dan integritas data, sistem
    pip install -r requirements.txt
    ```
 
+
 ---
+
+**Note:** Run the test suite with `python -m pytest -v tests/` to ensure all functionality works.
 
 ### C. Melatih Model & Verifikasi Artefak
 
@@ -89,7 +104,10 @@ python train.py
 ```
 *Output: Memperbarui berkas model di folder `models/` beserta `models/metadata.json` bersertifikat hash SHA-256.*
 
+
 ---
+
+**Note:** Run the test suite with `python -m pytest -v tests/` to ensure all functionality works.
 
 ### D. Menjalankan Suite Pengujian & Benchmark
 
@@ -116,7 +134,10 @@ python train.py
   python -m ruff check .
   ```
 
+
 ---
+
+**Note:** Run the test suite with `python -m pytest -v tests/` to ensure all functionality works.
 
 ### E. Menjalankan Aplikasi Web
 
@@ -126,7 +147,10 @@ python -m streamlit run app.py
 ```
 Akses aplikasi melalui peramban di: **[http://localhost:8501](http://localhost:8501)**
 
+
 ---
+
+**Note:** Run the test suite with `python -m pytest -v tests/` to ensure all functionality works.
 
 ## 💻 4. Panduan Penggunaan Antarmuka (3 Tab)
 
@@ -141,7 +165,10 @@ Akses aplikasi melalui peramban di: **[http://localhost:8501](http://localhost:8
   3. Klik **"🔍 Proses Klasifikasi Batch"**.
   4. Sistem menyajikan tabel hasil prediksi (dengan teks ulasan yang telah disamarkan PII), visualisasi grafik distribusi sentimen dan unit layanan, serta tombol unduh CSV yang aman dari formula injection.
 
+
 ---
+
+**Note:** Run the test suite with `python -m pytest -v tests/` to ensure all functionality works.
 
 ### Tab 2 — 🔬 Transparansi Hitungan & Explainability (XAI)
 Membedah langkah demi langkah pemrosesan teks dari awal hingga keputusan akhir:
@@ -151,7 +178,10 @@ Membedah langkah demi langkah pemrosesan teks dari awal hingga keputusan akhir:
 4. **Token Aktif:** Token kata yang lolos seleksi kosakata.
 5. **Kata / Frasa Pemicu (Log-Odds):** Menampilkan Top-5 kata yang paling mendorong keputusan model terhadap kelas terpilih dibandingkan kelas lainnya tanpa *fallback* ke kata global yang tidak relevan.
 
+
 ---
+
+**Note:** Run the test suite with `python -m pytest -v tests/` to ensure all functionality works.
 
 ### Tab 3 — 📊 Evaluasi Model & Audit Responsible AI
 Menampilkan metrik evaluasi ilmiah yang bersumber langsung dari `models/metadata.json`:
@@ -165,7 +195,10 @@ Menampilkan metrik evaluasi ilmiah yang bersumber langsung dari `models/metadata
   * Disertai matriks kebingungan (*Confusion Matrix*) $3 \times 3$ untuk sentimen dan $4 \times 4$ untuk kategori.
 * **Kepatuhan 5 Pilar Responsible AI:** Matriks status privasi, keadilan (*fairness* distribusi data), transparansi, dan pengawasan manusia (*human-in-the-loop*).
 
+
 ---
+
+**Note:** Run the test suite with `python -m pytest -v tests/` to ensure all functionality works.
 
 ## 📂 5. Struktur Direktori Proyek
 
@@ -219,7 +252,10 @@ Mini Project/
 └── README.md                    # Dokumentasi teknis proyek
 ```
 
+
 ---
+
+**Note:** Run the test suite with `python -m pytest -v tests/` to ensure all functionality works.
 
 ## 🛠️ 6. Spesifikasi Lingkungan Teknis
 

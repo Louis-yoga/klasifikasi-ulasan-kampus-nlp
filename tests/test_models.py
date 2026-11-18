@@ -1,10 +1,3 @@
-"""
-tests/test_models.py
---------------------
-Uji integritas model dan evaluasi: non-sirkularitas metrik, penanganan negasi,
-log-odds explainability, dan validasi metadata (MOD-01 s.d. MOD-07, U-01).
-"""
-
 import json
 import os
 
