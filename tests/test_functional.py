@@ -1,9 +1,3 @@
-"""
-tests/test_functional.py
-------------------------
-Uji fungsionalitas sistem: strict CSV parsing, error handling, batch prediction
-tanpa kebocoran raw PII (FUN-01 s.d. FUN-04, F-01 s.d. F-04).
-"""
 
 import pandas as pd
 import pytest
